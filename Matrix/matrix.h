@@ -36,4 +36,5 @@ namespace OOPLabs
 	matrix operator-(const matrix&, const matrix&);
 	matrix operator*(const matrix&, const matrix&);
 	matrix operator*(const matrix&, const Square&);
+	matrix operator*(const Square&, const matrix&); //Умножение слева
 }

@@ -20,10 +20,8 @@ namespace OOPLabs{
 		Square& operator+=(const Square&);
 		Square& operator-=(const Square&);
 		friend std::ostream& operator<<(std::ostream&, const Square&);
-
 	};
 	Square operator*(const Square&, const Square&);
-
 	Square operator*(const Square&, double);
 	Square operator+(const Square&, const Square&);
 	Square operator-(const Square&, const Square&);

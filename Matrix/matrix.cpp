@@ -228,4 +228,9 @@ namespace OOPLabs
 		matrix mtr(l);
 		return mtr *= k;
 	}
+	matrix operator*(const Square &, const matrix &)
+	{
+		//Заглушка
+		return matrix();
+	}
 }
