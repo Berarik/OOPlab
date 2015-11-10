@@ -1,10 +1,24 @@
-//#pragma once
-//
-//#include "stdafx.h"
-////#include "Matrix.h"
-//
-//namespace OOPLab 
-//{
+#pragma once
+
+#include "stdafx.h"
+#include "Matrix.h"
+
+namespace OOPLabs
+{
+
+	class Vector : matrix
+	{
+	public:
+		Vector(int wh = 0, double*inVect = NULL, int k = 0) :matrix(wh, 1, inVect, k) {};
+		Vector(Vector&);
+		friend std::ostream& operator<<(std::ostream&, const Vector&);
+		bool oprtmlpt(const Vector&, const matrix&);
+		bool oprtmlpt(const matrix&, const Vector&);
+		bool oprtmlpt(const Vector&);
+		bool oprtsum(const Vector&, const matrix&);
+		bool oprtsum(const matrix&, const Vector&);
+		bool oprtsum(const Vector&);
+	};
 //	/*class Vector :public Matrix
 //	{
 //		explicit Vector(int m =  0, double*inVect = NULL, int k = 0):Matrix(m, 1, inVect, k)
@@ -50,4 +64,4 @@
 //	double sinvect(const vect&, const vect&);
 //	double cosvect(const vect&, const vect&);
 //	double smlpt(const vect&, const vect&);*/
-//}
+}

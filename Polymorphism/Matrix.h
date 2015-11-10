@@ -1,69 +1,38 @@
 #pragma once
 
 #include "stdafx.h"
-#include <stdarg.h>
-#include <stdlib.h>
-#include <iomanip>
-#include "Exception.h"
 
 
 namespace OOPLabs
 {
-	class Matrix
+	class matrix
 	{
 	protected:
+		void init(int w, int h, const Square* inHead, int k);
 		static int cnt;
 		int ind, m, n;
-		double* Head;
+		Square* Head = NULL;
 	public:
-		explicit Matrix(int, int = 0, double*inHead = NULL, int = 0);
-		explicit Matrix(int = 0, double*inHead = NULL, int = 0);
-		Matrix(const Matrix&);
-		virtual ~Matrix();
-		bool oprtmlpt(const Matrix&);
-		bool oprtsum(const Matrix&);
-		Matrix& operator=(const Matrix&);
-		Matrix& operator+=(const Matrix&);
-		Matrix& operator-=(const Matrix&);
-		Matrix& operator*=(const Matrix&);
-		Matrix& operator*=(double);
-		double* operator[](int);
-		const double* operator[](int) const;
-		friend std::ostream& operator<<(std::ostream&, const Matrix&);
+		void init(const Square* inHead, int k);
+		matrix(int, int, const Square* inHead = NULL, int = 0);
+		explicit matrix(int = 0, const Square* inHead = NULL, int = 0);
+		matrix(const matrix&);
+		~matrix();
+		bool oprtmlpt(const matrix&);
+		bool oprtsum(const matrix&);
+		matrix& operator=(const matrix&);
+		matrix& operator+=(const matrix&);
+		matrix& operator-=(const matrix&);
+		matrix& operator*=(const matrix&);
+		matrix& operator*=(double);
+		Square* operator[](int);
+		const Square* operator[](int) const;
+		friend std::ostream& operator<<(std::ostream&, const matrix&);
 		int Width() const;
 		int Height() const;
 	};
-		class Vector : Matrix
-		{
-		public:
-			Vector(int wh = 0, double*inVect = NULL, int k = 0) :Matrix(wh, 1, inVect, k) {};
-			Vector(Vector&);
-			friend std::ostream& operator<<(std::ostream&, const Vector&);
-			bool oprtmlpt(const Vector&, const Matrix&);
-			bool oprtmlpt(const Matrix&, const Vector&);
-			bool oprtmlpt(const Vector&);
-			bool oprtsum(const Vector&,const Matrix&);
-			bool oprtsum(const Matrix&, const Vector&);
-			bool oprtsum(const Vector&);
-			//Matrix&
-			//explicit Vector(Matrix&)
-			//{}
-		//	Vector(Vector& vec) :Matrix(vec) {};
-			/*Vector& operator=(const Vector&);
-			Vector& operator+=(const Vector&);
-			Vector& operator-=(const Vector&);
-			Vector& operator*=(const Vector&);
-			Vector& operator*=(double);
-			double* operator[](int);
-			const double* operator[](int) const;*/
-		};
-	Matrix& operator+(const Matrix&, const Matrix&);
-	Matrix& operator-(const Matrix&, const Matrix&);
-	Matrix& operator*(const Matrix&, const Matrix&);
-	Matrix& operator*(const Matrix&, double);
-	//Vector& operator+(const Vector&, const Vector&);
-	//Vector& operator-(const Vector&, const Vector&);
-	//Vector& operator*(const Vector&, const Vector&);
-	//Vector& operator*(const Vector&, double);
-
+	matrix& operator+(const matrix&, const matrix&);
+	matrix& operator-(const matrix&, const matrix&);
+	matrix& operator*(const matrix&, const matrix&);
+	matrix operator*(const matrix&, const Square&);
 }

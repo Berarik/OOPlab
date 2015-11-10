@@ -5,285 +5,198 @@ using namespace std;
 namespace OOPLabs
 {
 
-	int Matrix::cnt = 0;
-	//char EC0[]="Невозможно инициализировать Матрицу № ";
-		Matrix::Matrix(int h, int w, double* intHead, int k)
+	int matrix::cnt = 0;
+	void matrix::init(int w, int h, const Square* inHead, int k)
+	{
+		if (h&&w)
 		{
-			setlocale(LC_ALL, "RUS");
-			ind = cnt++;
-			//cout << "Конструктор №" << ind << endl;
-			if (w >= 0 && h >= 0)
+			m = h;
+			n = w;
+			Head = new Square[m*n];
+			int i = 0;
+			if (k != 0)
 			{
-				if (h&&w)
+				if (inHead)
 				{
-					m = h;
-					n = w;
-					Head = new double[m*n];
-					if (k != 0)
-					{
-						if (intHead)
-						{
-							for (int i = 0; i < k; i++)       Head[i] = intHead[i];
-							for (int i = k; i < m*n; i++)     Head[i] = 0;
-						}
-					}
-					else
-					{
-						for (int i = 0; i < m*n; i++)    Head[i] = 0;
-					}
-				}
-				else
-				{
-					m = n = 0;
-					Head = NULL;
+					for (; i<k; i++)       Head[i] = inHead[i];
 				}
 			}
-			else throw Exception(1, ind);
+			for (; i<m*n; i++)    Head[i] = 0;
 		}
-		Matrix::Matrix(int w, double* intHead, int k)
+		else
 		{
-			setlocale(LC_ALL, "RUS");
-			ind = cnt++;
-			//cout << "Конструктор №" << ind << endl;
-			if (w >= 0)
-			{
-				m = n = w;
-				Head = new double[m*n];
-				if (k != 0)
-				{
-					if (intHead)
-					{
-						for (int i = 0; i < k; i++)       Head[i] = intHead[i];
-						for (int i = k; i < m*n; i++)     Head[i] = 0;
-					}
-				}
-				else
-				{
-					for (int i = 0; i < m*n; i++)    Head[i] = 0;
-				}
-			}
-			else throw Exception(1, ind);
+			m = n = 0;
+			Head = 0;
 		}
-		Matrix::Matrix(const Matrix& mtr)
+	}
+	matrix::matrix(int w, int h, const Square* inHead, int k)
+	{
+		ind = cnt++;
+		cout << "Конструктор №" << ind << endl;
+		if (w >= 0 && h >= 0)
 		{
-			setlocale(LC_ALL, "RUS");
-			ind = cnt++;
-			/*cout << "Конструктор №" << ind << endl;*/
-			if (m*n != mtr.m*mtr.n)
-			{
-				m = mtr.m;
-				n = mtr.n;
-				Head = new double[m*n];
-			}
-			else
-			{
-				m = mtr.m;
-				n = mtr.n;
-			}
-			for (int i = 0; i < m*n; i++)  Head[i] = mtr.Head[i];  //        else throw Exception(1,ind,mtr.ind);
+			init(w, h, inHead, k);
 		}
-		Matrix::~Matrix()
+		else throw Exception(1, ind);
+	}
+	matrix::matrix(int w, const Square* inHead, int k)
+	{
+		ind = cnt++;
+		cout << "Конструктор №" << ind << endl;
+		if (w >= 0)
 		{
-			setlocale(LC_ALL, "RUS");
-			//cout << "Деструктор №" << ind << endl;
+			init(w, w, inHead, k);
+		}
+		else throw Exception(1, ind);
+	}
+	matrix::matrix(const matrix& mtr)
+	{
+		ind = cnt++;
+		cout << "Конструктор №" << ind << endl;
+		init(mtr.n, mtr.m, mtr.Head, mtr.n*mtr.m);
+	}
+	matrix::~matrix()
+	{
+		cout << "Деструктор №" << ind << endl;
+		if (Head != NULL)
+		{
 			delete[]Head;
 		}
-		bool Matrix::oprtmlpt(const Matrix &B)
+	}
+	bool matrix::oprtmlpt(const matrix &B)
 		{
 			return (m == B.n);
 		}
-		bool Matrix::oprtsum(const Matrix &B)
+	bool matrix::oprtsum(const matrix &B)
 		{
 			return (n == B.n&&m == B.m);
 		}
-		int Matrix::Width() const
+	int matrix::Width() const
 		{
 			return n;
 		}
-		int Matrix::Height() const
+	int matrix::Height() const
 		{
 			return m;
 		}
-		Matrix& Matrix::operator=(const Matrix& mtr)
+	matrix& matrix::operator=(const matrix& mtr)
 		{
-			if (this == &mtr)
-			{
-				return *this;
-			}
-			if (m*n != mtr.m*mtr.n)
-			{
-				m = mtr.m;
-				n = mtr.n;
-				Head = new double[m*n];
-			}
-			else
-			{
-				m = mtr.m;
-				n = mtr.n;
-			}
-			for (int i = 0; i < m*n; i++)  Head[i] = mtr.Head[i];
+		if (this == &mtr)
+		{
 			return *this;
 		}
-		Matrix& Matrix::operator+=(const Matrix& mtr)
+		if (m*n != mtr.m*mtr.n)
 		{
-			if (oprtsum(mtr))
-			{
-				for (int i = 0; i < m*n; i++)  Head[i] += mtr.Head[i];
-			}
-			else throw Exception(4, ind, mtr.ind);
-			return *this;
+			if (m*n != 0)
+				delete[]Head;
+			m = mtr.m;
+			n = mtr.n;
+			if (m*n != 0)
+				Head = new Square[m*n];
+			else Head = NULL;
 		}
-		Matrix& Matrix::operator-=(const Matrix& mtr)
+		else
 		{
-
-			if (oprtsum(mtr))
-			{
-				for (int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];                                                                               //            this->operator+=(mtr);//            mtr*=-1.0;
-			}
-			else throw Exception(4, ind, mtr.ind);
-			return *this;
+			m = mtr.m;
+			n = mtr.n;
 		}
-		Matrix& Matrix::operator*=(const Matrix& mtr)
+		for (int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
+		return *this;
+	}
+	matrix& matrix::operator+=(const matrix& mtr)
+	{
+		if (oprtsum(mtr))
+	{
+		for (int i = 0; i<m*n; i++)  Head[i] += mtr.Head[i];
+	}
+	else throw Exception(4, ind, mtr.ind);
+	return *this;
+	}
+	matrix& matrix::operator-=(const matrix& mtr)
+	{
+		if (oprtsum(mtr))
 		{
-			if (oprtmlpt(mtr))
-			{
-				Matrix tmp(n, mtr.m);
-				for (int i = 0; i < n; i++)
-					for (int j = 0; j < mtr.m; j++)
-						for (int k = 0; k < m; k++)
-						{
-							tmp.Head[j + i*(mtr.m)] += Head[k + i*m] * mtr.Head[j + k*(mtr.m)];
-						}
-						return operator=(tmp);
-			}
-			else throw Exception(5, ind, mtr.ind);
-			return *this;
+			for (int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];                                                                               //            this->operator+=(mtr);//            mtr*=-1.0;
 		}
-		Matrix& Matrix::operator*=(double k)
+		else throw Exception(4, ind, mtr.ind);
+		return *this;
+	}
+	matrix& matrix::operator*=(const matrix& mtr)
+	{
+		if (oprtmlpt(mtr))
 		{
-			if (k == 1) { return *this; }
-			for (int i = 0; i < n*m; i++)
-			{
-				Head[i] *= k;
-			}
-			return *this;
-		}
-		const double* Matrix::operator[](int i) const
-		{
-			if (i < 0 || i >= n) throw Exception(2, ind);
-			return &Head[i*m];
-		}
-		double* Matrix::operator[](int i)
-		{
-			if (i < 0 || i >= n) throw Exception(2, ind);
-			return &Head[i*m];
-		}
-		ostream& operator<<(ostream& os, const Matrix& mtr)
-		{
-			setlocale(LC_ALL, "RUS");
-			streamsize k = cout.width();
-			if (k <= 0) k = 5;
-			cout << "Матрица №" << mtr.ind;
-			if (mtr.m*mtr.n)
-			{
-				cout << endl;
-				for (int i = 0; i < mtr.n; i++)
-				{
-					for (int j = 0; j < mtr.m; j++)
+			matrix tmp(n, mtr.m);
+			for (int i = 0; i<n; i++)
+				for (int j = 0; j<mtr.m; j++)
+					for (int k = 0; k<m; k++)
 					{
-						cout.width(k);
-						os << mtr[i][j];
+						tmp.Head[j + i*(mtr.m)] += Head[k + i*m] * mtr.Head[j + k*(mtr.m)];
 					}
-					cout << endl;
-				}
-			}
-			else cout << " пустая" << endl;
-			return os;
+			return operator=(tmp);
 		}
-		Matrix& operator+(const Matrix& l, const Matrix& r)
+		else throw Exception(5, ind, mtr.ind);
+		return *this;
+	}
+	matrix& matrix::operator*=(const Square& k)
+	{
+		for (int i = 0; i<n*m; i++)
 		{
-			Matrix mtr(l);
-			return mtr += r;
+			Head[i] *= k;
 		}
-		Matrix& operator-(const Matrix& l, const Matrix& r)
+		return *this;
+	}
+	const Square* matrix::operator[](int i) const
+	{
+		if (i < 0 || i >= n) throw Exception(2, ind);
+		return &Head[i*m];
+	}
+	Square* matrix::operator[](int i)
+	{
+		if (i < 0 || i >= n) throw Exception(2, ind);
+		return &Head[i*m];
+	}
+	ostream& operator<<(ostream& os, const matrix& mtr)
+	{
+		streamsize k = cout.width();
+		cout << "Матрица №" << mtr.ind;
+		if (mtr.m*mtr.n)
 		{
-			Matrix mtr(l);
-			return mtr -= r;
-		}
-		Matrix& operator*(const Matrix& l, const Matrix& r)
-		{
-			Matrix mtr = l;
-			return mtr *= r;
-		}
-		Matrix& operator*(const Matrix& l, double k)
-		{
-			Matrix mtr(l);
-			return mtr *= k;
-		}
-		ostream& operator<<(ostream& os, const Vector& Vect)
-		{
-			setlocale(LC_ALL, "RUS");
-			streamsize k = cout.width();
-			if (k <= 0) k = 5;
-			cout << "Вектор №" <<Vect.ind;
-			if (Vect.m*Vect.n)
+			cout << endl;
+			for (int i = 0; i<mtr.n; i++)
 			{
-				cout << endl;
-				for (int i = 0; i < Vect.n; i++)
+				for (int j = 0; j<mtr.m; j++)
 				{
-					for (int j = 0; j < Vect.m; j++)
-					{
-						cout.width(k);
-						os << Vect[i][j];
-					}
-					cout << endl;
+					if (k>0) cout.width(k);
+					cout << mtr[i][j];
+					if (k <= 0) cout << " ";
 				}
+				cout << endl;
 			}
-			else cout << " пустая" << endl;
-			return os;
 		}
-		bool Vector::oprtmlpt(const Vector& Vec, const Matrix& Mtr)
-		{
-			return (Vec.m == Mtr.Width()) ;
-		}
-		bool Vector::oprtmlpt(const Matrix& Mtr, const Vector& Vec)
-		{
-			return (Mtr.Height() == Vec.n );
-		}
-		bool Vector::oprtmlpt(const Vector& Vec)
-		{
-			return (m == Vec.n );
-		}
-		bool Vector::oprtsum(const Vector& Vec,const Matrix& Mtr)
-		{
-			return ((Vec.n == Mtr.Width()&&Vec.m == Mtr.Height()) );
-		}
-		bool Vector::oprtsum(const Matrix& Mtr, const Vector& Vec)
-		{
-			return (Mtr.Width() == Vec.n&&Mtr.Height() == Vec.m);
-		}
-		bool Vector::oprtsum(const Vector& Vec)
-		{
-			return (n == Vec.n&&m == Vec.m);
-		}
-		Vector::Vector(Vector& Vec)
-		{
-			setlocale(LC_ALL, "RUS");
-			ind = cnt++;
-			/*cout << "Конструктор №" << ind << endl;*/
-			if (m*n != Vec.m*Vec.n)
-			{
-				m = Vec.m;
-				n = Vec.n;
-				Head = new double[m*n];
-			}
-			else
-			{
-				m = Vec.m;
-				n = Vec.n;
-			}
-			for (int i = 0; i < m*n; i++)  Head[i] = Vec.Head[i];
-		}
+		else cout << " пустая" << endl;
+		return os;
+	}
+	matrix& operator+(const matrix& l, const matrix& r)
+	{
+		matrix mtr(l);
+		return mtr += r;
+	}
+	matrix& operator-(const matrix& l, const matrix& r)
+	{
+		matrix mtr(l);
+		return mtr -= r;
+	}
+	matrix& operator*(const matrix& l, const matrix& r)
+	{
+		matrix mtr = l;
+		return mtr *= r;
+	}
+	matrix operator*(const matrix& l, const Square& k)
+	{
+		matrix mtr(l);
+		return mtr *= k;
+	}
+		
 		/*Vector::Vector(Vector& vec)
 		{
 

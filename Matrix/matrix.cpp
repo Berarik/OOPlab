@@ -189,7 +189,6 @@ namespace OOPLabs
 	ostream& operator<<(ostream& os, const matrix& mtr)
 	{
 		streamsize k = cout.width();
-		//if (k <= 0) k = 5;
 		cout << "Матрица №" << mtr.ind;
 		if (mtr.m*mtr.n)
 		{

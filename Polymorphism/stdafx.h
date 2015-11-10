@@ -12,8 +12,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <locale.h>
-
-
-
+#include "Exception.h"
+#include "Square.h"
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы
