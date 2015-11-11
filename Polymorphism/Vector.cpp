@@ -4,12 +4,13 @@ using namespace std;
 
 namespace OOPLabs 
 {
-	void Vector::init(int h, const Square* inHead, int k)
+	void Vector::init(int w, const Square* inHead, int k)
 	{
-		if (h>0)
+		if (w>0)
 		{
-			m = h;
-			Head = new Square[m*n];
+			n = w;
+			m = 1;
+			Head = new Square[n];
 			int i = 0;
 			if (k != 0)
 			{
@@ -18,11 +19,12 @@ namespace OOPLabs
 					for (; i<k; i++)       Head[i] = inHead[i];
 				}
 			}
-			for (; i<m*n; i++)    Head[i] = 0;
+			for (; i<n; i++)    Head[i] = 0;
 		}
 		else
 		{
-			m = 0;
+			n = 0;
+			m = 1;
 			Head = 0;
 		}
 	}
@@ -36,7 +38,7 @@ namespace OOPLabs
 				for (; i<k; i++)       Head[i] = inHead[i];
 			}
 		}
-		for (; i<m*n; i++)    Head[i] = 0;
+		for (; i<n; i++)    Head[i] = 0;
 	}
 	ostream& operator<<(ostream& os, const Vector& Vect)
 	{
@@ -48,13 +50,10 @@ namespace OOPLabs
 			cout << endl;
 			for (int i = 0; i < Vect.n; i++)
 			{
-				for (int j = 0; j < Vect.m; j++)
-				{
-					if (k > 0) cout.width(k);
-					cout << Vect[i][j];
-					if (k <= 0) cout << " ";
-				}
-				cout << endl;
+				if (k > 0) cout.width(k);
+				os << Vect[i];
+				if (k <= 0) cout << " ";
+				os << endl;
 			}
 		}
 		else cout << " пустая" << endl;
@@ -84,8 +83,98 @@ namespace OOPLabs
 	{
 		return (n == Vec.n&&m == Vec.m);
 	}
-	Vector::Vector(Vector& Vec)
+	Square& Vector::operator[](int i)
 	{
-		init(Vec.m,Vec.Head,Vec.m);
+		return Head[i];
+	}
+	const Square& Vector::operator[](int i) const
+	{
+		return Head[i];
+	}
+	Vector::Vector(const Vector& Vec)
+	{
+		init(Vec.n,Vec.Head,Vec.n);
+	}
+	Vector::~Vector()
+	{
+		cout << "Деструктор Вектор №" << ind << endl;
+		if (Head != NULL)
+		{
+			delete Head;
+		}
+		Head = 0;
+	}
+	Vector& Vector::operator=(const Vector& mtr)
+	{
+		if (this == &mtr)
+		{
+			return *this;
+		}
+		if (m*n != mtr.m*mtr.n)
+		{
+			if (m*n != 0)
+				delete[]Head;
+			m = mtr.m;
+			n = mtr.n;
+			if (m*n != 0)
+				Head = new Square[m*n];
+			else Head = NULL;
+		}
+		else
+		{
+			m = mtr.m;
+			n = mtr.n;
+		}
+		for (int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
+		return *this;
+	}
+	Vector& Vector::operator*=(const Vector& Vec)
+	{
+		return *this;
+	}
+	Vector& Vector::operator+=(const Vector& Vec)
+	{
+		if (oprtsum(Vec))
+		{
+			for (int i = 0; i<m*n; i++)  Head[i] += Vec.Head[i];
+		}
+		else throw Exception(4, ind, Vec.ind);
+		return *this;
+	}
+	Vector& Vector::operator-=(const Vector& Vec)
+	{
+		for (int i = 0; i < m; i++)
+		{
+			Head[i] -= Vec.Head[i];
+		}
+		return *this;
+	}
+	Vector& Vector::operator*=(const Square& k)
+	{
+		for (int i = 0; i<n*m; i++)
+		{
+			Head[i] *= k;
+		}
+		return *this;
+	}
+	Vector& operator+(const Vector& l, const Vector& r)
+	{
+		Vector mtr(l);
+		return mtr += r;
+	}
+	Vector& operator-(const Vector& l, const Vector& r)
+	{
+		Vector mtr(l);
+		return mtr -= r;
+	}
+	Vector& operator*(const Vector& l, const Vector& r)
+	{
+		Vector mtr = l;
+		return mtr *= r;
+	}
+	Vector operator*(const Vector& l, const Square& k)
+	{
+		Vector mtr(l);
+		return mtr *= k;
 	}
 }

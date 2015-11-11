@@ -8,23 +8,23 @@ namespace OOPLabs
 	class matrix
 	{
 	protected:
-		virtual void init(int w, int h, const Square* inHead, int k);
+		void init(int w, int h, const Square* inHead, int k);
 		static int cnt;
 		int ind, m, n;
 		Square* Head = NULL;
 	public:
-		virtual void init(const Square* inHead, int k);
+		void init(const Square* inHead, int k);
 		matrix(int, int, const Square* inHead = NULL, int = 0);
 		explicit matrix(int = 0, const Square* inHead = NULL, int = 0);
 		matrix(const matrix&);
-		~matrix();
+		virtual ~matrix();
 		bool oprtmlpt(const matrix&);
 		bool oprtsum(const matrix&);
-		matrix& operator=(const matrix&);
-		matrix& operator+=(const matrix&);
-		matrix& operator-=(const matrix&);
-		matrix& operator*=(const matrix&);
-		matrix& operator*=(const Square&);
+		virtual matrix& operator=(const matrix&);
+		virtual matrix& operator+=(const matrix&);
+		virtual matrix& operator-=(const matrix&);
+		virtual matrix& operator*=(const matrix&);
+		virtual matrix& operator*=(const Square&);
 		Square* operator[](int);
 		const Square* operator[](int) const;
 		friend std::ostream& operator<<(std::ostream&, const matrix&);

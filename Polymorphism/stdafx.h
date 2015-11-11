@@ -10,11 +10,12 @@
 #include <stdio.h>
 #include <tchar.h>
 #include <stdlib.h>
-#include <iostream>
 #include <locale.h>
+#include <iostream>
+#include <iomanip>
 #include "Exception.h"
 #include "Square.h"
-#include <iomanip>
+#include "Matrix.h"
 #include "Vector.h"
 
 // TODO: Установите здесь ссылки на дополнительные заголовки, требующиеся для программы

@@ -22,7 +22,7 @@
     <ProjectGuid>{67C2A432-589A-49CA-A36D-E080A22BADBD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Polymorphism</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
     <ProjectName>Inheritance</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

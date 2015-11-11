@@ -60,7 +60,7 @@ namespace OOPLabs
 		cout << "Деструктор №" << ind << endl;
 		if (Head != NULL)
 		{
-			delete[]Head;
+			delete Head;
 		}
 	}
 	bool matrix::oprtmlpt(const matrix &B)
@@ -196,13 +196,4 @@ namespace OOPLabs
 		matrix mtr(l);
 		return mtr *= k;
 	}
-		
-		/*Vector::Vector(Vector& vec)
-		{
-
-		}*/
-		//Vector& Vector::operator=(const Vector&)
-		//{
-		//	
-		//}
 }

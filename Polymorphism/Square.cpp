@@ -6,32 +6,31 @@ namespace OOPLabs
 {
 	Square& Square::operator*=(double X)
 	{
-		double x = a;
-		x *= X;
-		if (x >= 0)
+		double t = a;
+		t *= X;
+		if (t >= 0)
 		{
-			(*this).setA(x);
+			(*this).setA(t);
 			return *this;
-
 		}
 		else throw Exception(6);
 	};
 	Square& Square::operator*=(const Square& L)
 	{
-		double x = a;
-		x *= L.getA();
-		if (x >= 0)
+		double t = a;
+		t *= L.getA();
+		if (t >= 0)
 		{
-			(*this).setA(x);
+			(*this).setA(t);
 			return *this;
 		}
 		else throw Exception(6);
 	};
 	Square& Square::operator+=(const Square& L)
 	{
-		double x = a;
-		x += L.getA();
-		if (x >= 0)
+		double t = a;
+		t += L.getA();
+		if (t >= 0)
 		{
 			(*this).setA(x);
 			return *this;
@@ -40,9 +39,9 @@ namespace OOPLabs
 	};
 	Square& Square::operator-=(const Square& L)
 	{
-		double x = a;
-		x -= L.getA();
-		if (x >= 0)
+		double t = a;
+		t -= L.getA();
+		if (t >= 0)
 		{
 			(*this).setA(x);
 			return *this;
