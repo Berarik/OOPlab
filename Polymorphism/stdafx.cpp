@@ -3,9 +3,7 @@
 // stdafx.obj будет содержать предварительно откомпилированные сведения о типе
 
 #include "stdafx.h"
-#include <stdarg.h>
-#include <stdlib.h>
-#include <iomanip>
+
 
 
 // TODO: Установите ссылки на любые требующиеся дополнительные заголовки в файле STDAFX.H

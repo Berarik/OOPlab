@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "Matrix.h"
+
 
 using namespace OOPLabs;
 using namespace std;
@@ -10,18 +10,25 @@ using namespace std;
 int main()
 {
 	const int k = 3;
-	double x[k] = { 3,4.9,7 };
+	//double x[k] = { 3,4.9,7 };
+	Square Sq[9];
+	for (int i = 0; i < 9; i++)
+	{
+		Sq[i].setA(rand() % (i + 1) + 5);
+		Sq[i].setcoorX(rand() % (i + 1) + 8);
+		Sq[i].setcoorY(rand() % (i + 1) + 2);
+	}
 	int mjj = 3;
 	/*Matrix M1(3, 1, x, 2);
 	cout << M1 << endl;
 	Matrix M2(3,1, x, 2);
-	cout << M2 << endl;*/
-	Vector V1(3,x,k);
+	cout << M2 << endl;
+	Vector V1(3,Sq,k);
 	cout << V1 << endl;
 	Vector v2(V1);
 	cout << v2 << endl;
-	v2.oprtmlpt(V1);
-	cout << "Завершение работы программы.\nНАжмити любую кнопку для выхода." << endl;
+	v2.oprtmlpt(V1);*/
+	cout << "Завершение работы программы.\nНажмити любую кнопку для выхода." << endl;
 	cin.get();
     return 0;
 }

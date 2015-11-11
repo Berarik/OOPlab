@@ -72,15 +72,15 @@ namespace OOPLabs
 			return (n == B.n&&m == B.m);
 		}
 	int matrix::Width() const
-		{
-			return n;
-		}
+	{
+		return n;
+	}
 	int matrix::Height() const
-		{
-			return m;
-		}
+	{
+		return m;
+	}
 	matrix& matrix::operator=(const matrix& mtr)
-		{
+	{
 		if (this == &mtr)
 		{
 			return *this;
