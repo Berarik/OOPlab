@@ -136,7 +136,7 @@ namespace OOPLabs
 	{
 		if (oprtsum(Vec))
 		{
-			for (int i = 0; i<m*n; i++)  Head[i] += Vec.Head[i];
+			for (int i = 0; i<n; i++)  Head[i] += Vec.Head[i];
 		}
 		else throw Exception(4, ind, Vec.ind);
 		return *this;
@@ -177,4 +177,90 @@ namespace OOPLabs
 		Vector mtr(l);
 		return mtr *= k;
 	}
+
+
+
+
+
+
+
+
+	Vector& Vector::operator=(const matrix& mtr)
+	{
+		if (this == &mtr)
+		{
+			return *this;
+		}
+		if (mtr.Height() == 1 || mtr.Height() == 0)
+		{
+			if (m*n != mtr.Width()*mtr.Height())
+			{
+				if (m*n != 0)
+					delete[]Head;
+				m = mtr.Height();
+				n = mtr.Width();
+				if (m*n != 0)
+					Head = new Square[m*n];
+				else Head = NULL;
+			}
+			else
+			{
+				m = mtr.Height();
+				n = mtr.Width();
+			}
+			for (int i = 0,j=0; i < m*n; i++)  Head[i] = mtr[j][i];
+		}
+		else
+			throw Exception(8, ind);
+		return *this;
+	}
+	Vector& Vector::operator*=(const matrix& Vec)
+	{
+		return *this;
+	}
+	Vector& Vector::operator+=(const matrix& Vec)
+	{
+		if (oprtsum(*this,Vec))
+		{
+			for (int i = 0,j=0; i<n; i++)  Head[i] += Vec[j][i];
+		}
+		else throw Exception(4, ind);
+		return *this;
+	}
+	Vector& Vector::operator-=(const matrix& Vec)
+	{
+		for (int i = 0 , j = 0; i < m; i++)
+		{
+			Head[i] -= Vec[j][i];
+		}
+		return *this;
+	}
+	/*Vector& Vector::operator*=(const Square& k)
+	{
+		for (int i = 0; i<n*m; i++)
+		{
+			Head[i] *= k;
+		}
+		return *this;
+	}*/
+	Vector& operator+(const Vector& l, const matrix& r)
+	{
+		Vector mtr(l);
+		return mtr += r;
+	}
+	Vector& operator-(const Vector& l, const matrix& r)
+	{
+		Vector mtr(l);
+		return mtr -= r;
+	}
+	Vector& operator*(const Vector& l, const matrix& r)
+	{
+		Vector mtr = l;
+		return mtr *= r;
+	}
+	/*Vector operator*(const Vector& l, const Square& k)
+	{
+		Vector mtr(l);
+		return mtr *= k;
+	}*/
 }

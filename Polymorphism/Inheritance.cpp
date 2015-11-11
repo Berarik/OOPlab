@@ -28,7 +28,12 @@ int main()
 	cout << V1 << endl;
 	Vector v2(V1);
 	cout << v2 << endl;
-	v2.oprtmlpt(V1);
+	if (v2.oprtsum(V1))
+	{
+		v2 += V1;
+		cout << v2;
+	}
+
 	cout << "Завершение работы программы.\nНажмити любую кнопку для выхода." << endl;
 	cin.get();
     return 0;

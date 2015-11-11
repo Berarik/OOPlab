@@ -32,7 +32,7 @@ namespace OOPLabs
 		t += L.getA();
 		if (t >= 0)
 		{
-			(*this).setA(x);
+			(*this).setA(t);
 			return *this;
 		}
 		else throw Exception(6);
@@ -43,7 +43,7 @@ namespace OOPLabs
 		t -= L.getA();
 		if (t >= 0)
 		{
-			(*this).setA(x);
+			(*this).setA(t);
 			return *this;
 		}
 		else throw Exception(6);

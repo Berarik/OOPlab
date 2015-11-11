@@ -29,6 +29,12 @@ namespace OOPLabs
 		Vector& operator*=(const Vector&);
 		Vector& operator-=(const Vector&);
 		Vector& operator*=(const Square&);
+		Vector& operator=(const matrix&);
+		Vector& operator+=(const matrix&);
+		Vector& operator*=(const matrix&);
+		Vector& operator-=(const matrix&);
+//		Vector& operator*=(const matrix&);
+
 	};
 	Vector& operator+(const Vector&, const Vector&);
 	Vector& operator-(const Vector&, const Vector&);
