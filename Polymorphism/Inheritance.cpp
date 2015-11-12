@@ -20,7 +20,7 @@ int main()
 		Sq[i].setcoorY(rand() % (i + 1) + 2);
 	}
 	int mjj = 3;
-	matrix M1(3, 1, Sq, 3);
+	matrix M1(3, 2, Sq, 3);
 	cout << M1 << endl;
 	matrix M2(3,1, (Sq+4), 3);
 	cout << M2 << endl;
@@ -33,7 +33,13 @@ int main()
 		v2 += V1;
 		cout << v2;
 	}
-
+	if (oprtsum(v2, M1))
+	{
+		cout <<"Матрица\n"<< M1;
+		cout << "TRUE" << endl;
+		v2 *= M1;
+		cout << v2;
+	}
 	cout << "Завершение работы программы.\nНажмити любую кнопку для выхода." << endl;
 	cin.get();
     return 0;

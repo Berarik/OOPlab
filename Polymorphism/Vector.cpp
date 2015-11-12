@@ -59,25 +59,25 @@ namespace OOPLabs
 		else cout << " пустая" << endl;
 		return os;
 	}
-	bool Vector::oprtmlpt(const Vector& Vec, const matrix& Mtr)
+	bool oprtmlpt(const Vector& Vec, const matrix& Mtr)
 	{
-		return (Vec.m == Mtr.Width());
+		return (Vec.Width() == Mtr.Width());
 	}
-	bool Vector::oprtmlpt(const matrix& Mtr, const Vector& Vec)
+	bool oprtmlpt(const matrix& Mtr, const Vector& Vec)
 	{
-		return (Mtr.Height() == Vec.n);
+		return (Mtr.Height() == Vec.Width());
 	}
 	bool Vector::oprtmlpt(const Vector& Vec)
 	{
 		return (m == Vec.n);
 	}
-	bool Vector::oprtsum(const Vector& Vec, const matrix& Mtr)
+	bool oprtsum(const Vector& Vec, const matrix& Mtr)
 	{
-		return ((Vec.n == Mtr.Width() && Vec.m == Mtr.Height()));
+		return ((Vec.Width() == Mtr.Width() && Vec.Height() == Mtr.Height()));
 	}
-	bool Vector::oprtsum(const matrix& Mtr, const Vector& Vec)
+	bool oprtsum(const matrix& Mtr, const Vector& Vec)
 	{
-		return (Mtr.Width() == Vec.n&&Mtr.Height() == Vec.m);
+		return (Mtr.Width() == Vec.Width() && Mtr.Height() == Vec.Height());
 	}
 	bool Vector::oprtsum(const Vector& Vec)
 	{
@@ -177,7 +177,14 @@ namespace OOPLabs
 		Vector mtr(l);
 		return mtr *= k;
 	}
-
+	int Vector::Width() const
+	{
+		return n;
+	}
+	int Vector::Height() const
+	{
+		return m;
+	}
 
 
 
@@ -220,7 +227,7 @@ namespace OOPLabs
 	}
 	Vector& Vector::operator+=(const matrix& Vec)
 	{
-		if (oprtsum(*this,Vec))
+		if (OOPLabs::oprtsum(*this,Vec))
 		{
 			for (int i = 0,j=0; i<n; i++)  Head[i] += Vec[j][i];
 		}

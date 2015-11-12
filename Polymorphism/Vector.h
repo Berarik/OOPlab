@@ -16,11 +16,7 @@ namespace OOPLabs
 		Vector(const Vector&);
 		~Vector();
 		friend std::ostream& operator<<(std::ostream&, const Vector&);
-		bool oprtmlpt(const Vector&, const matrix&);
-		bool oprtmlpt(const matrix&, const Vector&);
 		bool oprtmlpt(const Vector&);
-		bool oprtsum(const Vector&, const matrix&);
-		bool oprtsum(const matrix&, const Vector&);
 		bool oprtsum(const Vector&);
 		Square& operator[](int);
 		const Square& operator[](int) const;
@@ -34,10 +30,16 @@ namespace OOPLabs
 		Vector& operator*=(const matrix&);
 		Vector& operator-=(const matrix&);
 //		Vector& operator*=(const matrix&);
+		int Width() const;
+		int Height() const;
 
 	};
 	Vector& operator+(const Vector&, const Vector&);
 	Vector& operator-(const Vector&, const Vector&);
 	Vector& operator*(const Vector&, const Vector&);
 	Vector operator*(const Vector&, const Square&);
+	bool oprtsum(const Vector&, const matrix&);
+	bool oprtsum(const matrix&, const Vector&);
+	bool oprtmlpt(const Vector&, const matrix&);
+	bool oprtmlpt(const matrix&, const Vector&);
 }
