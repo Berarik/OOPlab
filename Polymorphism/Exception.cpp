@@ -8,6 +8,12 @@ char EC4[] = "Невозможно сложить/вычесть матрицу № ";
 char EC41[] = " и матрицу № ";
 char EC5[] = "Невозможно умножить матрицу № ";
 char EC51[] = " на матрицу № ";
+char EC6[] = "Невозможно умножить Вектор № ";
+char EC61[] = " на вектор № ";
+char EC7[] = "Невозможно сложить/вычесть вектор № ";
+char EC71[] = " и вектор № ";
+char EC9[] = "Некорректный индекс Вектора № ";
+
 Exception::Exception(int ErrorNumb, int M1, int M2)
 {
 	o1 = M1;
@@ -32,6 +38,21 @@ void Exception::GetException()
 		break;
 	case 5:
 		cout << EC5 << o1 << EC51 << o2 << endl;
+		break;
+	case 6:
+		cout << EC6 << o1 << EC6 << o2 << endl;
+		break;
+	case 7:
+		cout << EC7 << o1 << EC71 << o2 << endl;
+		break;
+	case 8:
+		cout << EC4 << o1 << EC71 << o2 << endl;
+		break;
+	case 9:
+		cout << EC9 << o1 << endl;
+		break;
+	case 10:
+		cout << EC5 << o1 << EC61 <<o2<<endl;
 		break;
 	}
 }

@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exception.h" />
+    <ClInclude Include="Inheritance.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="stdafx.h" />

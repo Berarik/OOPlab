@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 
-
 namespace OOPLabs
 {
 	class matrix
@@ -17,19 +16,20 @@ namespace OOPLabs
 		matrix(int, int, const Square* inHead = NULL, int = 0);
 		explicit matrix(int = 0, const Square* inHead = NULL, int = 0);
 		matrix(const matrix&);
-		virtual ~matrix();
+		~matrix();
 		bool oprtmlpt(const matrix&);
 		bool oprtsum(const matrix&);
-		virtual matrix& operator=(const matrix&);
-		virtual matrix& operator+=(const matrix&);
-		virtual matrix& operator-=(const matrix&);
-		virtual matrix& operator*=(const matrix&);
-		virtual matrix& operator*=(const Square&);
+		matrix& operator=(const matrix&);
+		matrix& operator+=(const matrix&);
+		matrix& operator-=(const matrix&);
+		matrix& operator*=(const matrix&);
+		matrix& operator*=(const Square&);
 		Square* operator[](int);
 		const Square* operator[](int) const;
 		friend std::ostream& operator<<(std::ostream&, const matrix&);
 		int Width() const;
 		int Height() const;
+		int Index() const;
 	};
 	matrix& operator+(const matrix&, const matrix&);
 	matrix& operator-(const matrix&, const matrix&);

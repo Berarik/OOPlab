@@ -22,7 +22,7 @@
     <ProjectGuid>{B83917F1-E48C-4BD5-830E-47E27D6F9BDE}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OOPlab</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
     <ProjectName>Vector</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

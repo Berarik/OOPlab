@@ -79,6 +79,10 @@ namespace OOPLabs
 	{
 		return m;
 	}
+	int matrix::Index() const
+	{
+		return ind;
+	}
 	matrix& matrix::operator=(const matrix& mtr)
 	{
 		if (this == &mtr)
@@ -116,7 +120,7 @@ namespace OOPLabs
 	{
 		if (oprtsum(mtr))
 		{
-			for (int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];                                                                               //            this->operator+=(mtr);//            mtr*=-1.0;
+			for (int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];                                                                      
 		}
 		else throw Exception(4, ind, mtr.ind);
 		return *this;
@@ -188,7 +192,7 @@ namespace OOPLabs
 	}
 	matrix& operator*(const matrix& l, const matrix& r)
 	{
-		matrix mtr = l;
+		matrix mtr( l);
 		return mtr *= r;
 	}
 	matrix operator*(const matrix& l, const Square& k)
