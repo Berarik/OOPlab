@@ -7,7 +7,7 @@ namespace OOPLabs
 	class matrix
 	{
 	protected:
-		void init(int w, int h, const Square* inHead, int k);
+		void init(int n, int m, const Square* inHead, int k);
 		static int cnt;
 		int ind, m, n;
 		Square* Head = NULL;
@@ -17,9 +17,9 @@ namespace OOPLabs
 		explicit matrix(int = 0, const Square* inHead = NULL, int = 0);
 		matrix(const matrix&);
 		~matrix();
-		bool oprtmlpt(const matrix&);
+		virtual bool oprtmlpt(const matrix&);
 		bool oprtsum(const matrix&);
-		matrix& operator=(const matrix&);
+		virtual matrix& operator=(const matrix&);
 		matrix& operator+=(const matrix&);
 		matrix& operator-=(const matrix&);
 		matrix& operator*=(const matrix&);

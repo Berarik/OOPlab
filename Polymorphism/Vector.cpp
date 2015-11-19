@@ -69,20 +69,24 @@ namespace OOPLabs
 	//}
 	//bool Vector::oprtmlpt(const Vector& Vec)
 	//{
-	//	return (m == Vec.n);
+	//	return (n == Vec.n);
 	//}
-	//bool oprtsum(const Vector& Vec, const matrix& Mtr)
+	//bool Vector::oprtmlpt(const matrix& Vec)
 	//{
-	//	return ((Vec.Width() == Mtr.Width() && Vec.Height() == Mtr.Height()));
+	//	return (n == Vec.Width());
 	//}
-	//bool oprtsum(const matrix& Mtr, const Vector& Vec)
-	//{
-	//	return (Mtr.Width() == Vec.Width() && Mtr.Height() == Vec.Height());
-	//}
-	//bool Vector::oprtsum(const Vector& Vec)
-	//{
-	//	return (n == Vec.n&&m == Vec.m);
-	//}
+	/*bool oprtsum(const Vector& Vec, const matrix& Mtr)
+	{
+		return ((Vec.Width() == Mtr.Width() && Vec.Height() == Mtr.Height()));
+	}
+	bool oprtsum(const matrix& Mtr, const Vector& Vec)
+	{
+		return (Mtr.Width() == Vec.Width() && Mtr.Height() == Vec.Height());
+	}*/
+	/*bool Vector::oprtsum(const Vector& Vec)
+	{
+		return (n == Vec.n&&m == Vec.m);
+	}*/
 	Square& Vector::operator[](int i)
 	{
 		if (i < 0 || i >= n) throw Exception(9, ind);
@@ -97,6 +101,10 @@ namespace OOPLabs
 	{
 		init(Vec.n,Vec.Head,Vec.n);
 	}
+	Vector::Vector(const matrix& Mtr)
+	{
+		operator=(Mtr);
+	}
 	Vector::~Vector()
 	{
 		cout << "Деструктор Вектор №" << ind << endl;
@@ -106,42 +114,52 @@ namespace OOPLabs
 		}
 		Head = 0;
 	}
-	Vector& Vector::operator=(const Vector& mtr)
-	{
-		if (this == &mtr)
-		{
-			return *this;
-		}
-		if (m*n != mtr.m*mtr.n)
-		{
-			if (m*n != 0)
-				delete[]Head;
-			m = mtr.m;
-			n = mtr.n;
-			if (m*n != 0)
-				Head = new Square[m*n];
-			else Head = NULL;
-		}
-		else
-		{
-			m = mtr.m;
-			n = mtr.n;
-		}
-		for (int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
-		return *this;
-	}
+	//Vector& Vector::operator=(const Vector& mtr)
+	//{
+	//	if (this == &mtr)
+	//	{
+	//		return *this;
+	//	}
+	//	if (m*n != mtr.m*mtr.n)
+	//	{
+	//		if (m*n != 0)
+	//			delete[]Head;
+	//		m = mtr.m;
+	//		n = mtr.n;
+	//		if (m*n != 0)
+	//			Head = new Square[m*n];
+	//		else Head = NULL;
+	//	}
+	//	else
+	//	{
+	//		m = mtr.m;
+	//		n = mtr.n;
+	//	}
+	//	for (int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
+	//	return *this;
+	//}
 	Vector& Vector::operator*=(const Square& k)
 	{
-		for (int i = 0; i<n*m; i++)
-		{
-			Head[i] *= k;
-		}
+		matrix::operator*=(k);
+	//	for (int i = 0; i<n*m; i++)
+	//	{
+	//		Head[i] *= k;
+	//	}
 		return *this;
 	}
 	Vector& Vector::operator*=(const Vector& Vec)
 	{
+		matrix::operator*=(Vec);
 		return *this;
 	}
+	//Vector& Vector::operator*=(const matrix& Vec)
+	//{
+	//	if (oprtmlpt(Vec))
+	//	{
+	//		matrix::operator*=(Vec);
+	//		return *this;
+	//	}
+	//}
 	Vector& Vector::operator=(const matrix& mtr)
 	{
 		if (this == &mtr)
@@ -223,34 +241,34 @@ namespace OOPLabs
 	//		return mtr;
 	//	else throw Exception(8, mtr.Index(), vec.ind);
 	//}
-	//matrix & operator*=(matrix & mtr, Vector & vec)
+	matrix & operator*=(matrix & mtr, Vector & vec)
+	{
+		if (vec.oprtmlpt(mtr))
+			return mtr;
+		else throw Exception(10, mtr.Index());
+	}
+	//Vector& Vector::operator*=(const matrix& mtr)
 	//{
-	//	if (oprtmlpt(mtr, vec))
-	//		return mtr;
-	//	else throw Exception(10, mtr.Index(), vec.ind);
+	//	return *this;
 	//}
-	Vector& Vector::operator*=(const matrix& mtr)
-	{
-		return *this;
-	}
-	Vector& Vector::operator+=(const matrix& Vec)
-	{
-		if (oprtsum(Vec))
-		{
-			for (int i = 0,j=0; i<n; i++)  Head[i] += Vec[j][i];
-		}
-		else throw Exception(10, ind);
-		return *this;
-	}
-	Vector& Vector::operator-=(const matrix& Vec)
-	{
-		if (oprtsum(Vec))
-		{
-			for (int i = 0, j = 0; i<n; i++)  Head[i] -= Vec[j][i];
-		}
-		else throw Exception(10, ind);
-		return *this;
-	}
+	//Vector& Vector::operator+=(const matrix& Vec)
+	//{
+	//	if (oprtsum(Vec))
+	//	{
+	//		for (int i = 0,j=0; i<n; i++)  Head[i] += Vec[j][i];
+	//	}
+	//	else throw Exception(10, ind);
+	//	return *this;
+	//}
+	//Vector& Vector::operator-=(const matrix& Vec)
+	//{
+	//	if (oprtsum(Vec))
+	//	{
+	//		for (int i = 0, j = 0; i<n; i++)  Head[i] -= Vec[j][i];
+	//	}
+	//	else throw Exception(10, ind);
+	//	return *this;
+	//}
 //	Vector& operator+(const Vector& l, const matrix& r)
 //	{
 //		Vector mtr(l);
@@ -261,9 +279,14 @@ namespace OOPLabs
 //		Vector mtr(l);
 //		return mtr -= r;
 //	}
-//	Vector& operator*(const Vector& l, const matrix& r)
-//	{
-//		Vector mtr = l;
-//		return mtr *= r;
-//	}
+	//Vector& operator*(const matrix& l, const Vector& r)
+	//{
+	//	matrix mtr = l;
+	//	return Vector(mtr *= r);
+	//}
+	//matrix& operator*(const Vector& l, const matrix& r)
+	//{
+	//	matrix Mtr=l;
+	//	return Mtr*=r;
+	//}
 }
