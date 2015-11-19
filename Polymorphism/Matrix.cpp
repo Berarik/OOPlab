@@ -5,15 +5,15 @@ using namespace std;
 namespace OOPLabs
 {
 
-	unsigned int matrix::cnt = 0;
-	void matrix::init(int w, int h, const Square* inHead, unsigned int k)
+	int matrix::cnt = 0;
+	void matrix::init(int w, int h, const Square* inHead, int k)
 	{
 		if (h&&w)
 		{
 			m = h;
 			n = w;
 			Head = new Square[m*n];
-			unsigned int i = 0;
+			int i = 0;
 			if (k != 0)
 			{
 				if (inHead)
@@ -29,20 +29,32 @@ namespace OOPLabs
 			Head = 0;
 		}
 	}
-	matrix::matrix(int w, int h, const Square* inHead, unsigned int k)
+	void matrix::init(const Square * inHead, int k)
+	{
+		int i = 0;
+		if (k != 0)
+		{
+			if (inHead)
+			{
+				for (; i<k; i++)       Head[i] = inHead[i];
+			}
+		}
+		for (; i<m*n; i++)    Head[i] = 0;
+	}
+	matrix::matrix(int w, int h, const Square* inHead, int k)
 	{
 		ind = cnt++;
-		cout << "Конструктор №" << ind << endl;
+		//cout << "Конструктор №" << ind << endl;
 		if (w >= 0 && h >= 0)
 		{
 			init(w, h, inHead, k);
 		}
 		else throw Exception(1, ind);
 	}
-	matrix::matrix(int w, const Square* inHead, unsigned int k)
+	matrix::matrix(int w, const Square* inHead, int k)
 	{
 		ind = cnt++;
-		cout << "Конструктор №" << ind << endl;
+		//cout << "Конструктор №" << ind << endl;
 		if (w >= 0)
 		{
 			init(w, w, inHead, k);
@@ -52,17 +64,13 @@ namespace OOPLabs
 	matrix::matrix(const matrix& mtr)
 	{
 		ind = cnt++;
-		cout << "Конструктор №" << ind << endl;
+		//cout << "Конструктор №" << ind << endl;
 		init(mtr.n, mtr.m, mtr.Head, mtr.n*mtr.m);
 	}
 	matrix::~matrix()
 	{
-		cout << "Деструктор №" << ind << endl;
+		//cout << "Деструктор №" << ind << endl;
 		if (Head != NULL)
-		{
-			delete []Head;
-		}
-		else
 		{
 			delete Head;
 		}
@@ -108,14 +116,14 @@ namespace OOPLabs
 			m = mtr.m;
 			n = mtr.n;
 		}
-		for (unsigned int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
+		for (int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
 		return *this;
 	}
 	matrix& matrix::operator+=(const matrix& mtr)
 	{
 		if (oprtsum(mtr))
 	{
-		for (unsigned int i = 0; i<m*n; i++)  Head[i] += mtr.Head[i];
+		for (int i = 0; i<m*n; i++)  Head[i] += mtr.Head[i];
 	}
 	else throw Exception(4, ind, mtr.ind);
 	return *this;
@@ -124,7 +132,7 @@ namespace OOPLabs
 	{
 		if (oprtsum(mtr))
 		{
-			for (unsigned int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];
+			for (int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];
 		}
 		else throw Exception(4, ind, mtr.ind);
 		return *this;
@@ -134,45 +142,53 @@ namespace OOPLabs
 		if (oprtmlpt(mtr))
 		{
 			matrix tmp(n, mtr.m);
-			for (unsigned int i = 0; i<n; i++)
-				for (unsigned int j = 0; j<mtr.m; j++)
-					for (unsigned int k = 0; k<m; k++)
+			for (int i = 0; i<n; i++)
+				for (int j = 0; j<mtr.m; j++)
+					for (int k = 0; k<m; k++)
 					{
 						tmp.Head[j + i*(mtr.m)] += Head[k + i*m] * mtr.Head[j + k*(mtr.m)];
 					}
-			return operator=(tmp);
+			return (*this).operator=(tmp);
 		}
 		else throw Exception(5, ind, mtr.ind);
 		return *this;
 	}
 	matrix& matrix::operator*=(const Square& k)
 	{
-		for (unsigned int i = 0; i<n*m; i++)
+		for (int i = 0; i<n*m; i++)
 		{
 			Head[i] *= k;
 		}
 		return *this;
 	}
-	const Square* matrix::operator[](unsigned int i) const
+	const Square* matrix::operator[](int i) const
 	{
 		if (i < 0 || i >= n) throw Exception(2, ind);
 		return &Head[i*m];
 	}
-	Square* matrix::operator[](unsigned int i)
+	Square* matrix::operator[](int i)
 	{
 		if (i < 0 || i >= n) throw Exception(2, ind);
 		return &Head[i*m];
+	}
+	matrix matrix::transpon() const
+	{
+		matrix tmp(Height(), Width());
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < m; j++)
+				tmp.Head[i + j*m] = Head[j + i*m];
+		return tmp;
 	}
 	ostream& operator<<(ostream& os, const matrix& mtr)
 	{
 		streamsize k = cout.width();
-		cout << "Матрица №" << mtr.ind;
+		//cout << "Матрица №" << mtr.ind;
 		if (mtr.m*mtr.n)
 		{
 			cout << endl;
-			for (unsigned int i = 0; i<mtr.n; i++)
+			for (int i = 0; i<mtr.n; i++)
 			{
-				for (unsigned int j = 0; j<mtr.m; j++)
+				for (int j = 0; j<mtr.m; j++)
 				{
 					if (k>0) cout.width(k);
 					cout << mtr[i][j];
@@ -184,17 +200,17 @@ namespace OOPLabs
 		else cout << " пустая" << endl;
 		return os;
 	}
-	matrix& operator+(const matrix& l, const matrix& r)
+	matrix operator+(const matrix& l, const matrix& r)
 	{
 		matrix mtr = l;
 		return mtr += r;
 	}
-	matrix& operator-(const matrix& l, const matrix& r)
+	matrix operator-(const matrix& l, const matrix& r)
 	{
 		matrix mtr = l;
 		return mtr -= r;
 	}
-	matrix& operator*(const matrix& l, const matrix& r)
+	matrix operator*(const matrix& l, const matrix& r)
 	{
 		matrix mtr = l;
 		return mtr *= r;

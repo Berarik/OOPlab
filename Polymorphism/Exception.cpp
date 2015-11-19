@@ -12,6 +12,8 @@ char EC6[] = "Невозможно умножить Вектор № ";
 char EC61[] = " на вектор № ";
 char EC7[] = "Невозможно сложить/вычесть вектор № ";
 char EC71[] = " и вектор № ";
+char EC11[] = "Невозможно скопировать Вектора № ";
+char EC111[] = " на матрицу № ";
 char EC9[] = "Некорректный индекс Вектора № ";
 
 Exception::Exception(int ErrorNumb, int M1, int M2)
@@ -53,6 +55,9 @@ void Exception::GetException()
 		break;
 	case 10:
 		cout << EC5 << o1 << EC61 <<o2<<endl;
+		break;
+	case 11:
+		cout << EC11 << o1 << EC51 << o2 << endl;
 		break;
 	}
 }
