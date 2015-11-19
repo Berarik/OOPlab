@@ -4,14 +4,14 @@ using namespace std;
 
 namespace OOPLabs 
 {
-	void Vector::init(int w, const Square* inHead, int k)
+	void Vector::init(unsigned int w, const Square* inHead, unsigned int k)
 	{
 		if (w>0)
 		{
 			n = w;
 			m = 1;
 			Head = new Square[n];
-			int i = 0;
+			unsigned int i = 0;
 			if (k != 0)
 			{
 				if (inHead)
@@ -28,9 +28,9 @@ namespace OOPLabs
 			Head = 0;
 		}
 	}
-	void Vector::init(const Square * inHead, int k)
+	void Vector::init(const Square * inHead, unsigned int k)
 	{
-		int i = 0;
+		unsigned int i = 0;
 		if (k != 0)
 		{
 			if (inHead)
@@ -87,12 +87,12 @@ namespace OOPLabs
 	{
 		return (n == Vec.n&&m == Vec.m);
 	}*/
-	Square& Vector::operator[](int i)
+	Square& Vector::operator[](unsigned int i)
 	{
 		if (i < 0 || i >= n) throw Exception(9, ind);
 		return Head[i];
 	}
-	const Square& Vector::operator[](int i) const
+	const Square& Vector::operator[](unsigned int i) const
 	{
 		if (i < 0 || i >= n) throw Exception(9, ind);
 		return Head[i];
@@ -183,7 +183,7 @@ namespace OOPLabs
 				m = mtr.Height();
 				n = mtr.Width();
 			}
-			for (int i = 0,j=0; i < m*n; i++)  Head[i] = mtr[j][i];
+			for (unsigned int i = 0,j=0; i < m*n; i++)  Head[i] = mtr[j][i];
 		}
 		else
 			throw Exception(8, ind);

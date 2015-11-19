@@ -5,15 +5,15 @@ using namespace std;
 namespace OOPLabs
 {
 
-	int matrix::cnt = 0;
-	void matrix::init(int w, int h, const Square* inHead, int k)
+	unsigned int matrix::cnt = 0;
+	void matrix::init(int w, int h, const Square* inHead, unsigned int k)
 	{
 		if (h&&w)
 		{
 			m = h;
 			n = w;
 			Head = new Square[m*n];
-			int i = 0;
+			unsigned int i = 0;
 			if (k != 0)
 			{
 				if (inHead)
@@ -29,7 +29,7 @@ namespace OOPLabs
 			Head = 0;
 		}
 	}
-	matrix::matrix(int w, int h, const Square* inHead, int k)
+	matrix::matrix(int w, int h, const Square* inHead, unsigned int k)
 	{
 		ind = cnt++;
 		cout << "Конструктор №" << ind << endl;
@@ -39,7 +39,7 @@ namespace OOPLabs
 		}
 		else throw Exception(1, ind);
 	}
-	matrix::matrix(int w, const Square* inHead, int k)
+	matrix::matrix(int w, const Square* inHead, unsigned int k)
 	{
 		ind = cnt++;
 		cout << "Конструктор №" << ind << endl;
@@ -59,6 +59,10 @@ namespace OOPLabs
 	{
 		cout << "Деструктор №" << ind << endl;
 		if (Head != NULL)
+		{
+			delete []Head;
+		}
+		else
 		{
 			delete Head;
 		}
@@ -104,14 +108,14 @@ namespace OOPLabs
 			m = mtr.m;
 			n = mtr.n;
 		}
-		for (int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
+		for (unsigned int i = 0; i<m*n; i++)  Head[i] = mtr.Head[i];
 		return *this;
 	}
 	matrix& matrix::operator+=(const matrix& mtr)
 	{
 		if (oprtsum(mtr))
 	{
-		for (int i = 0; i<m*n; i++)  Head[i] += mtr.Head[i];
+		for (unsigned int i = 0; i<m*n; i++)  Head[i] += mtr.Head[i];
 	}
 	else throw Exception(4, ind, mtr.ind);
 	return *this;
@@ -120,7 +124,7 @@ namespace OOPLabs
 	{
 		if (oprtsum(mtr))
 		{
-			for (int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];                                                                      
+			for (unsigned int i = 0; i < m*n; i++)  Head[i] -= mtr.Head[i];
 		}
 		else throw Exception(4, ind, mtr.ind);
 		return *this;
@@ -130,9 +134,9 @@ namespace OOPLabs
 		if (oprtmlpt(mtr))
 		{
 			matrix tmp(n, mtr.m);
-			for (int i = 0; i<n; i++)
-				for (int j = 0; j<mtr.m; j++)
-					for (int k = 0; k<m; k++)
+			for (unsigned int i = 0; i<n; i++)
+				for (unsigned int j = 0; j<mtr.m; j++)
+					for (unsigned int k = 0; k<m; k++)
 					{
 						tmp.Head[j + i*(mtr.m)] += Head[k + i*m] * mtr.Head[j + k*(mtr.m)];
 					}
@@ -143,18 +147,18 @@ namespace OOPLabs
 	}
 	matrix& matrix::operator*=(const Square& k)
 	{
-		for (int i = 0; i<n*m; i++)
+		for (unsigned int i = 0; i<n*m; i++)
 		{
 			Head[i] *= k;
 		}
 		return *this;
 	}
-	const Square* matrix::operator[](int i) const
+	const Square* matrix::operator[](unsigned int i) const
 	{
 		if (i < 0 || i >= n) throw Exception(2, ind);
 		return &Head[i*m];
 	}
-	Square* matrix::operator[](int i)
+	Square* matrix::operator[](unsigned int i)
 	{
 		if (i < 0 || i >= n) throw Exception(2, ind);
 		return &Head[i*m];
@@ -166,9 +170,9 @@ namespace OOPLabs
 		if (mtr.m*mtr.n)
 		{
 			cout << endl;
-			for (int i = 0; i<mtr.n; i++)
+			for (unsigned int i = 0; i<mtr.n; i++)
 			{
-				for (int j = 0; j<mtr.m; j++)
+				for (unsigned int j = 0; j<mtr.m; j++)
 				{
 					if (k>0) cout.width(k);
 					cout << mtr[i][j];
@@ -182,22 +186,22 @@ namespace OOPLabs
 	}
 	matrix& operator+(const matrix& l, const matrix& r)
 	{
-		matrix mtr(l);
+		matrix mtr = l;
 		return mtr += r;
 	}
 	matrix& operator-(const matrix& l, const matrix& r)
 	{
-		matrix mtr(l);
+		matrix mtr = l;
 		return mtr -= r;
 	}
 	matrix& operator*(const matrix& l, const matrix& r)
 	{
-		matrix mtr( l);
+		matrix mtr = l;
 		return mtr *= r;
 	}
 	matrix operator*(const matrix& l, const Square& k)
 	{
-		matrix mtr(l);
+		matrix mtr = l;
 		return mtr *= k;
 	}
 }
