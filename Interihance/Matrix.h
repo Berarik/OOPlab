@@ -24,9 +24,9 @@ namespace OOPLabs
 		matrix& operator-=(const matrix&);
 		matrix& operator*=(const matrix&);
 		matrix& operator*=(const Square&);
-		Square* operator[](int);
+		virtual Square* operator[](int);// Использование виртуальных функций для запрета вызова несвойственных методов
+		virtual const Square* operator[](int) const;
 		matrix transpon() const;
-		const Square* operator[](int) const;
 		friend std::ostream& operator<<(std::ostream&, const matrix&);
 		int Width() const;
 		int Height() const;

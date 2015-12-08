@@ -1,0 +1,20 @@
+// stdafx.h: включаемый файл дл€ стандартных системных включаемых файлов
+// или включаемых файлов дл€ конкретного проекта, которые часто используютс€, но
+// не часто измен€ютс€
+//
+
+#pragma once
+
+#include "targetver.h"
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
+#include <stdlib.h>
+#include <iostream>
+#include <locale.h>
+#include "Exception.h"
+#include "template.h"
+#include "Square.h"
+#include "polynomial.h"
+#include "fraction.h"
+// TODO: ”становите здесь ссылки на дополнительные заголовки, требующиес€ дл€ программы

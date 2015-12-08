@@ -17,8 +17,8 @@ namespace OOPLabs
 		Vector(const matrix&);
 		~Vector();			
 		Vector& operator=(const matrix&);
-		Square& operator[](int);
-		const Square& operator[](int) const;
+	/*	Square& operator[](int i);
+		const Square& operator[](int) const;*/
 		bool oprtmlpt(const Vector&);
 		bool oprtsum(const Vector&);
 		bool oprtmlpt(const matrix&);
@@ -32,7 +32,6 @@ namespace OOPLabs
 		//Vector& operator*=(const matrix&);
 		//Vector& operator-=(const matrix&);
 		//bool oprtmlpt(const Vector&);
-		
 		//Vector& operator+=(const Vector&);		
 		//Vector& operator-=(const Vector&);
 		//friend matrix& operator+=(matrix&, Vector&);

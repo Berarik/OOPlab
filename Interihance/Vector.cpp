@@ -44,17 +44,16 @@ namespace OOPLabs
 		}
 		for (; i<n; i++)    Head[i] = 0;
 	}
-	
-	Square& Vector::operator[](int i)
-	{
-		if (i < 0 || i >= n) throw Exception(9, ind);
-		return Head[i];
-	}
-	const Square& Vector::operator[](int i) const
-	{
-		if (i < 0 || i >= n) throw Exception(9, ind);
-		return Head[i];
-	}
+	//Square& Vector::operator[](matrix& x)
+	//{
+	//	//if (i < 0 || i >= n) throw Exception(9, ind);
+	//	return *Head;
+	//}
+	//const Square& Vector::operator[](matrix& x) const
+	//{
+	//	//if (i < 0 || i >= n) throw Exception(9, ind);
+	//	return *Head;// [i];
+	//}
 	Vector::Vector(const Vector& Vec)
 	{
 		init(Vec.n,Vec.Head,Vec.n);
@@ -154,9 +153,7 @@ namespace OOPLabs
 	//bool oprtmlpt(const matrix& Mtr, const Vector& Vec)
 	//{
 	//	return (Mtr.Height() == Vec.Width());
-	//}
-	
-	
+	//}	
 	/*bool oprtsum(const Vector& Vec, const matrix& Mtr)
 	{
 	return ((Vec.Width() == Mtr.Width() && Vec.Height() == Mtr.Height()));
@@ -165,7 +162,6 @@ namespace OOPLabs
 	{
 	return (Mtr.Width() == Vec.Width() && Mtr.Height() == Vec.Height());
 	}
-	*/
 	//Vector& Vector::operator=(const Vector& mtr)
 	//{
 	//	if (this == &mtr)
@@ -208,7 +204,6 @@ namespace OOPLabs
 	//		return *this;
 	//	}
 	//}
-	/*
 	Vector& Vector::operator+=(const Vector& Vec)
 	{
 		if (oprtsum(Vec))
